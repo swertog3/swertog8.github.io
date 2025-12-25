@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Адаптивная веб-страница</title>
+    
+    <!-- Подключение шрифтов -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Подключение CSS файла -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="navbar-container container">
+            <a href="#" class="logo">Web<span>Studio</span></a>
+            
+            <!-- Десктопное меню -->
+            <ul class="nav-desktop nav-list">
+                <li><a href="#home">Главная</a></li>
+                <li><a href="#about">О нас</a></li>
+                <li class="dropdown">
+                    <a href="#services">Услуги <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#web">Веб-разработка</a></li>
+                        <li><a href="#mobile">Мобильные приложения</a></li>
+                        <li><a href="#design">Дизайн</a></li>
+                        <li><a href="#seo">SEO-оптимизация</a></li>
+                    </ul>
+                </li>
+                <li><a href="#portfolio">Портфолио</a></li>
+                <li><a href="#contact">Контакты</a></li>
+                <li><button class="btn contact-btn" id="contactBtn">Связь с нами</button></li>
+            </ul>
+            
+            <!-- Кнопка мобильного меню -->
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Мобильное меню -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" id="mobileMenuClose">
+            <i class="fas fa-times"></i>
+        </button>
+        <ul class="mobile-nav-list">
+            <li><a href="#home">Главная</a></li>
+            <li><a href="#about">Обо мне</a></li>
+            <li class="mobile-dropdown">
+                <a href="#services" class="mobile-dropdown-toggle" id="mobileDropdownToggle">
+                    Услуги <i class="fas fa-chevron-down"></i>
+                </a>
+                <ul class="mobile-dropdown-menu" id="mobileDropdownMenu">
+                    <li><a href="#web">Веб-разработка</a></li>
+                    <li><a href="#mobile">Мобильные приложения</a></li>
+                    <li><a href="#design">Дизайн</a></li>
+                    <li><a href="#seo">SEO-оптимизация</a></li>
+                </ul>
+            </li>
+            <li><a href="#portfolio">Портфолио</a></li>
+            <li><a href="#contact">Контакты</a></li>
+            <li><button class="btn contact-btn" id="mobileContactBtn">Связь с нами</button></li>
+        </ul>
+    </div>
+    
+    <!-- Оверлей для мобильного меню -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Шапка с видео -->
+    <header class="header" id="home">
+        <!-- Видео будет добавлено через JS -->
+        <div class="header-overlay"></div>
+        <div class="header-content">
+            <h1>Создаем современные веб-решения</h1>
+            <p>Я устал</p>
+            <a href="#about" class="btn">Узнать больше</a>
+        </div>
+    </header>
+
+    <!-- Секция "О нас" -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2 class="section-title">Обо <span>мне</span></h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Я не хотел это делать</h3>
+                    <p>Но пришлось</p>                
+                    <button class="btn contact-btn" id="aboutContactBtn">Связаться со мной</button>
+                </div>
+                <div class="about-image">
+                    <img src="images/team.jpg" alt="Я">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция слайдера -->
+    <section id="services" class="slider-section">
+        <div class="container">
+            <h2 class="section-title">Мои <span>услуги</span></h2>
+            <div class="slider-container">
+                <div class="slider" id="slider">
+                    <!-- Слайды будут добавлены через JS -->
+                </div>
+                <div class="slider-controls">
+                    <button class="slider-btn" id="prevBtn">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="slider-dots" id="sliderDots"></div>
+                    <button class="slider-btn" id="nextBtn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Форма обратной связи -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Не свяжитесь со <span>мной</span></h2>
+            <div class="contact-form">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Имя:</label>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Телефон:</label>
+                        <input type="tel" id="phone" name="phone" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Сообщение:</label>
+                        <textarea id="message" name="message" class="form-control" required></textarea>
+                    </div>
+                    <button type="submit" class="btn" id="submitBtn">Отправить сообщение</button>
+                    <div class="form-message" id="formMessage"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">Web<span>Studio</span></div>
+                <div class="footer-links">
+                    <a href="#home">Главная</a>
+                    <a href="#about">Обо мне</a>
+                    <a href="#services">Услуги</a>
+                    <a href="#portfolio">Портфолио</a>
+                    <a href="#contact">Контакты</a>
+                </div>
+                <p>© 2023 WebStudio. Все права защищены.</p>
+            </div>
+            <div class="footer-bottom">
+                <p>Сайт разработан с использованием современных веб-технологий</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Модальное окно контактной формы -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modal">
+            <button class="modal-close" id="modalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 class="modal-title">Связь со мной</h2>
+            <form id="modalForm">
+                <div class="form-group">
+                    <label for="modalName">Имя:</label>
+                    <input type="text" id="modalName" name="name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="modalEmail">Email:</label>
+                    <input type="email" id="modalEmail" name="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="modalPhone">Телефон:</label>
+                    <input type="tel" id="modalPhone" name="phone" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="modalMessage">Сообщение:</label>
+                    <textarea id="modalMessage" name="message" class="form-control" required></textarea>
+                </div>
+                <button type="submit" class="btn" id="modalSubmitBtn">Отправить сообщение</button>
+                <div class="form-message" id="modalFormMessage"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Подключение JavaScript файлов -->
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
