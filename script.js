@@ -1,24 +1,66 @@
-document.addEventListener('DOMContentLoaded', function() { // Этот код выполнится, когда DOM будет готов
-    const calculateBtn = document.getElementById('calculateBtn'); // Получаю кнопку по ID
-    const quantityInput = document.getElementById('quantity'); // Получаю поле ввода количества
-    const productSelect = document.getElementById('product');// Получаю выпадающий список
-    const resultDiv = document.getElementById('result'); // Получаю элемент для вывода результата
-    const resultContainer = document.getElementById('resultContainer'); // Получаю контейнер результата
+const openBtn = document.getElementById('openFormBtn');
+const popup = document.getElementById('popup');
+const closeBtn = document.getElementById('closeBtn');
+const form = document.getElementById('feedbackForm');
+const messageBox = document.getElementById('messageBox');
 
-    calculateBtn.addEventListener('click', function() { // При клике на кнопку
-        const quantityValue = quantityInput.value.trim();  // Получаю значение из поля ввода и убираем пробелы
-        const regex = /^\d+$/; // Регулярное выражение для проверки только цифр
+// Открытие попапа и изменение URL с помощью History API
+openBtn.addEventListener('click', () => {
+    popup.classList.remove('hidden');
+    history.pushState({}, '', '/feedback'); // Меняем URL
+});
 
-        if (!regex.test(quantityValue)) { // Если значение не соответствует формату
-            alert('Пожалуйста, введите только цифры для количества товара!');
-            return;
+// Закрытие попапа при клике на "Назад" в браузере
+window.addEventListener('popstate', () => {
+    popup.classList.add('hidden');
+});
+
+// Закрытие попапа по кнопке
+closeBtn.addEventListener('click', () => {
+    popup.classList.add('hidden');
+    history.back(); // Возвращаем предыдущий URL
+});
+
+// Отправка формы через fetch
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const data = new FormData(form);
+    const formData = Object.fromEntries(data);
+
+    // Сохраняем в LocalStorage перед отправкой
+    localStorage.setItem('feedbackForm', JSON.stringify(formData));
+
+    try {
+        const response = await fetch('https://example.com/api/feedback', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
+
+        const result = await response.json();
+        if (result.success) {
+            messageBox.innerHTML = '<p style="color: green;">Форма отправлена!</p>';
+            form.reset(); // Очищаем форму
+            localStorage.removeItem('feedbackForm'); // Удаляем из LocalStorage
+        } else {
+            messageBox.innerHTML = '<p style="color: red;">Ошибка отправки!</p>';
         }
+    } catch (error) {
+        messageBox.innerHTML = '<p style="color: red;">Ошибка сети!</p>';
+    }
+});
 
-        const productPrice = parseFloat(productSelect.value);  // Получаю цену выбранного товара
-        const quantity = parseInt(quantityValue, 10); // Преобразую строку в целое число
-        const totalCost = productPrice * quantity; // Рассчитываю общую стоимость
-
-        resultDiv.innerHTML = 'Стоимость заказа: ' + totalCost + ' руб.';  // Вывожу результат
-        resultContainer.style.display = 'block';  // Показываю контейнер с результатом
-    });
+// Восстановление значений из LocalStorage при загрузке
+window.addEventListener('load', () => {
+    const savedData = localStorage.getItem('feedbackForm');
+    if (savedData) {
+        const values = JSON.parse(savedData);
+        Object.keys(values).forEach(key => {
+            const field = form.querySelector(`[name="${key}"]`);
+            if (field) field.value = values[key];
+        });
+    }
 });
